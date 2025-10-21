@@ -1,0 +1,68 @@
+{
+  "name": "maduser/argon-error",
+  "description": "",
+  "type": "library",
+  "license": "MIT",
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "authors": [
+    {
+      "name": "Julien Duseyau",
+      "email": "julien.duseyau@gmail.com"
+    }
+  ],
+  "autoload": {
+    "psr-4": {
+      "Maduser\\Argon\\Error\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "Tests\\": "tests/"
+    }
+  },
+  "require": {
+    "php": "^8.2"
+  },
+  "require-dev": {
+    "vimeo/psalm": "^6.0",
+    "phpunit/phpunit": "^11.5",
+    "dealerdirect/phpcodesniffer-composer-installer": "^1.0",
+    "slevomat/coding-standard": "^8.16",
+    "squizlabs/php_codesniffer": "^3.8"
+  },
+  "config": {
+    "optimize-autoloader": true,
+    "sort-packages": true,
+    "allow-plugins": {
+      "dealerdirect/phpcodesniffer-composer-installer": true
+    },
+    "platform": {
+      "php": "8.2"
+    }
+  },
+  "scripts": {
+    "phpcs": "vendor/bin/phpcs --standard=phpcs.xml",
+    "phpcs:fix": "vendor/bin/phpcbf --standard=phpcs.xml",
+    "psalm": "vendor/bin/psalm --output-format=github",
+    "psalm:clear": "vendor/bin/psalm --clear-cache",
+    "test": "vendor/bin/phpunit",
+    "test:coverage": "mkdir -p storage/phpunit/coverage/html && vendor/bin/phpunit --coverage-html storage/phpunit/coverage/html --coverage-clover storage/phpunit/coverage/clover.xml && open storage/phpunit/coverage/html/index.html",
+    "ti": "vendor/bin/phpunit --testsuite=integration",
+    "tu": "vendor/bin/phpunit --testsuite=unit",
+    "watch": "find src/ | entr -r composer check",
+    "watch:test": "find src/ | entr -r composer test",
+    "watch:fix": "find src/ | entr -r composer phpcs:fix",
+    "check": [
+      "@test:coverage",
+      "@psalm",
+      "@phpcs:fix",
+      "@phpcs"
+    ],
+    "ci": [
+      "@test",
+      "@psalm",
+      "@phpcs"
+    ]
+  }
+}

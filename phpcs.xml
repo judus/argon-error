@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="intranet-ruleset"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="vendor/squizlabs/php_codesniffer/phpcs.xsd"
+>
+    <description>Strict PHP coding standard for the Argon container</description>
+
+    <!-- Base standard -->
+    <rule ref="PSR12"/>
+
+    <!-- Vendor-specific coding standard -->
+    <config name="installed_paths" value="vendor/slevomat/coding-standard"/>
+
+    <!-- Strict types declaration -->
+    <rule ref="SlevomatCodingStandard.TypeHints.DeclareStrictTypes">
+        <properties>
+            <property name="spacesCountAroundEqualsSign" value="0"/>
+        </properties>
+    </rule>
+
+    <!-- Protect test files from destructive removals -->
+    <rule ref="SlevomatCodingStandard.Functions.UnusedParameter">
+        <exclude-pattern>*</exclude-pattern>
+    </rule>
+
+    <!-- Files to include -->
+    <file>src/</file>
+    <file>tests/</file>
+
+    <!-- Ignore cache or generated resources -->
+    <exclude-pattern>*/tests/resources/cache/*</exclude-pattern>
+</ruleset>

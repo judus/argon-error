@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<psalm
+        errorLevel="1"
+        resolveFromConfigFile="true"
+        totallyTyped="true"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns="https://getpsalm.org/schema/config"
+        xsi:schemaLocation="https://getpsalm.org/schema/config vendor/vimeo/psalm/config.xsd"
+        xsi:noNamespaceSchemaLocation="vendor/vimeo/psalm/config.xsd"
+
+        findUnusedBaselineEntry="true"
+        findUnusedCode="true"
+>
+    <!-- Project files and directories -->
+    <projectFiles>
+        <directory name="src"/>
+        <ignoreFiles>
+            <directory name="tests"/>
+            <directory name="vendor"/>
+        </ignoreFiles>
+    </projectFiles>
+
+    <!-- Issue handlers -->
+    <issueHandlers>
+        <DeprecatedMethod errorLevel="error"/>
+        <DeprecatedClass errorLevel="error"/>
+        <PossiblyUnusedMethod errorLevel="info">
+            <errorLevel type="suppress">
+                <directory name="src"/>
+            </errorLevel>
+        </PossiblyUnusedMethod>
+        <MissingOverrideAttribute>
+            <errorLevel type="suppress">
+                <directory name="src"/>
+            </errorLevel>
+        </MissingOverrideAttribute>
+    </issueHandlers>
+</psalm>

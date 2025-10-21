@@ -1,0 +1,66 @@
+name: Build
+
+on:
+  push:
+    branches:
+      - master
+      - test
+      - dev
+    tags:
+      - 'v*'
+  pull_request:
+    branches:
+      - master
+      - test
+      - dev
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+
+    - name: Setup PHP
+      uses: shivammathur/setup-php@v2
+      with:
+        php-version: '8.2'
+        extensions: mbstring, intl, pdo, pdo_mysql
+        coverage: xdebug
+
+    - name: Validate composer.json
+      run: composer validate --strict
+
+    - name: Cache Composer packages
+      uses: actions/cache@v3
+      with:
+        path: vendor
+        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        restore-keys: |
+          ${{ runner.os }}-php-
+
+    - name: Install dependencies
+      run: composer install --prefer-dist --no-progress --no-suggest
+
+    - name: Run PHPUnit with coverage
+      run: vendor/bin/phpunit --coverage-clover=coverage.xml
+
+    - name: Run Psalm
+      run: vendor/bin/psalm --output-format=github --shepherd
+
+    - name: Run PHP_CodeSniffer
+      run: vendor/bin/phpcs --standard=phpcs.xml
+
+    - name: Run PHP CS Fixer (dry-run)
+      run: vendor/bin/php-cs-fixer fix --dry-run --diff --ansi || true
+
+    - name: Upload coverage reports to Codecov
+      uses: codecov/codecov-action@v5
+      with:
+        token: ${{ secrets.CODECOV_TOKEN }}
+        slug: judus/argon-dto
