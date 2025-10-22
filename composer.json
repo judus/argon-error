@@ -13,7 +13,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Maduser\\Argon\\Error\\": "src/"
+      "Maduser\\Argon\\": "src/"
     }
   },
   "autoload-dev": {
@@ -22,7 +22,11 @@
     }
   },
   "require": {
-    "php": "^8.2"
+    "php": "^8.2",
+    "maduser/argon": "dev-master",
+    "psr/http-factory": "^1.1",
+    "psr/http-message": "^2.0",
+    "psr/log": "^3.0"
   },
   "require-dev": {
     "vimeo/psalm": "^6.0",
