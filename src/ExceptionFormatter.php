@@ -2,12 +2,13 @@
 
 declare(strict_types=1);
 
-namespace Maduser\Argon\ErrorHandling\Http;
+namespace Maduser\Argon\Error;
 
 use JsonException;
-use Maduser\Argon\Contracts\ErrorHandling\Http\SafeToDisplayExceptionInterface;
-use Maduser\Argon\Contracts\ErrorHandling\Http\ExceptionFormatterInterface;
-use Maduser\Argon\Contracts\ErrorHandling\Http\HttpExceptionInterface;
+use Maduser\Argon\Error\Contracts\ExceptionFormatterInterface;
+use Maduser\Argon\Error\Contracts\HttpExceptionInterface;
+use Maduser\Argon\Error\Contracts\SafeToDisplayExceptionInterface;
+use Override;
 use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -45,6 +46,7 @@ final readonly class ExceptionFormatter implements ExceptionFormatterInterface
      * @param ServerRequestInterface $request
      * @return ResponseInterface
      */
+    #[Override]
     public function format(Throwable $e, ServerRequestInterface $request): ResponseInterface
     {
         return str_contains($request->getHeaderLine('Accept'), 'application/json')

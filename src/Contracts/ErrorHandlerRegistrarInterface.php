@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Maduser\Argon\Contracts\ErrorHandling\Http;
+namespace Maduser\Argon\Error\Contracts;
 
 interface ErrorHandlerRegistrarInterface
 {

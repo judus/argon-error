@@ -8,14 +8,15 @@ use Maduser\Argon\Container\AbstractServiceProvider;
 use Maduser\Argon\Container\ArgonContainer;
 use Maduser\Argon\Container\Exceptions\ContainerException;
 use Maduser\Argon\Container\Exceptions\NotFoundException;
-use Maduser\Argon\Contracts\ErrorHandling\Http\ExceptionDispatcherInterface;
-use Maduser\Argon\Contracts\ErrorHandling\Http\ExceptionFormatterInterface;
-use Maduser\Argon\Contracts\ErrorHandling\Http\ErrorHandlerInterface;
-use Maduser\Argon\Contracts\ErrorHandling\Http\ErrorHandlerRegistrarInterface;
-use Maduser\Argon\Contracts\Http\ResponseEmitterInterface;
-use Maduser\Argon\ErrorHandling\Http\ExceptionDispatcher;
-use Maduser\Argon\ErrorHandling\Http\ExceptionFormatter;
-use Maduser\Argon\ErrorHandling\Http\ErrorHandler;
+use Maduser\Argon\Error\Contracts\ErrorHandlerInterface;
+use Maduser\Argon\Error\Contracts\ErrorHandlerRegistrarInterface;
+use Maduser\Argon\Error\Contracts\ExceptionDispatcherInterface;
+use Maduser\Argon\Error\Contracts\ExceptionFormatterInterface;
+use Maduser\Argon\Error\Contracts\ResponseEmitterInterface;
+use Maduser\Argon\Error\ErrorHandler;
+use Maduser\Argon\Error\ExceptionDispatcher;
+use Maduser\Argon\Error\ExceptionFormatter;
+use Override;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
 
@@ -24,6 +25,7 @@ class ArgonErrorHandlerServiceProvider extends AbstractServiceProvider
     /**
      * @throws ContainerException
      */
+    #[Override]
     public function register(ArgonContainer $container): void
     {
         $container->set(ExceptionFormatter::class, args: [
@@ -48,6 +50,7 @@ class ArgonErrorHandlerServiceProvider extends AbstractServiceProvider
      * @throws ContainerException
      * @throws NotFoundException
      */
+    #[Override]
     public function boot(ArgonContainer $container): void
     {
         $container->extend(

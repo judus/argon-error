@@ -13,7 +13,7 @@
   ],
   "autoload": {
     "psr-4": {
-      "Maduser\\Argon\\": "src/"
+      "Maduser\\Argon\\Error\\": "src/"
     }
   },
   "autoload-dev": {

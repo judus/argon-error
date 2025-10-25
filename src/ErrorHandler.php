@@ -2,13 +2,15 @@
 
 declare(strict_types=1);
 
-namespace Maduser\Argon\ErrorHandling\Http;
+namespace Maduser\Argon\Error;
 
 use ErrorException;
-use Maduser\Argon\Contracts\ErrorHandling\Http\ExceptionDispatcherInterface;
-use Maduser\Argon\Contracts\ErrorHandling\Http\ExceptionFormatterInterface;
-use Maduser\Argon\Contracts\ErrorHandling\Http\ErrorHandlerInterface;
-use Maduser\Argon\Contracts\Http\ResponseEmitterInterface;
+use JetBrains\PhpStorm\NoReturn;
+use Maduser\Argon\Error\Contracts\ErrorHandlerInterface;
+use Maduser\Argon\Error\Contracts\ExceptionDispatcherInterface;
+use Maduser\Argon\Error\Contracts\ExceptionFormatterInterface;
+use Maduser\Argon\Error\Contracts\ResponseEmitterInterface;
+use Override;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Http\Message\StreamInterface;
@@ -39,6 +41,7 @@ final class ErrorHandler implements ErrorHandlerInterface
         $this->bootstrapRequest = $request;
     }
 
+    #[Override]
     public function register(): void
     {
         if ($this->registered) {
@@ -60,6 +63,7 @@ final class ErrorHandler implements ErrorHandlerInterface
         register_shutdown_function([$this, 'shutdownFunction']);
     }
 
+    #[Override]
     public function handle(Throwable $e, ServerRequestInterface $request): ResponseInterface
     {
         $this->currentRequest = $request;
@@ -198,6 +202,7 @@ final class ErrorHandler implements ErrorHandlerInterface
         }
     }
 
+    #[NoReturn]
     private function emitResponse(ResponseInterface $response): void
     {
         if ($this->emitter !== null) {
@@ -235,15 +240,17 @@ final class ErrorHandler implements ErrorHandlerInterface
         }
     }
 
+    #[NoReturn]
     private function emitFallbackMessage(Throwable $e): void
     {
         http_response_code(500);
 
         echo sprintf(
-            "Fatal error: %s in %s:%d\n",
+            "Fatal error: %s in %s:%d\n\n%s\n",
             $e->getMessage(),
             $e->getFile(),
-            $e->getLine()
+            $e->getLine(),
+            $e->getTraceAsString()
         );
 
         exit(1);

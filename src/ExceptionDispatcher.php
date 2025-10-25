@@ -2,10 +2,11 @@
 
 declare(strict_types=1);
 
-namespace Maduser\Argon\ErrorHandling\Http;
+namespace Maduser\Argon\Error;
 
-use Maduser\Argon\Contracts\ErrorHandling\Http\ExceptionDispatcherInterface;
-use Maduser\Argon\Contracts\ErrorHandling\Http\ExceptionFormatterInterface;
+use Maduser\Argon\Error\Contracts\ExceptionDispatcherInterface;
+use Maduser\Argon\Error\Contracts\ExceptionFormatterInterface;
+use Override;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
@@ -31,6 +32,7 @@ final class ExceptionDispatcher implements ExceptionDispatcherInterface
      * @param class-string<Throwable>|list<class-string<Throwable>> $exceptionClass
      * @param callable(Throwable, ServerRequestInterface): ?ResponseInterface $handler
      */
+    #[Override]
     public function register(string|array $exceptionClass, callable $handler): void
     {
         /** @var list<class-string<Throwable>> $classes */
@@ -41,6 +43,7 @@ final class ExceptionDispatcher implements ExceptionDispatcherInterface
         }
     }
 
+    #[Override]
     public function dispatch(Throwable $e, ServerRequestInterface $request): ResponseInterface
     {
         foreach ($this->map as $class => $handlers) {
