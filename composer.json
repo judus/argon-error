@@ -23,6 +23,7 @@
   },
   "require": {
     "maduser/argon": "dev-master",
+    "maduser/argon-support": "dev-master",
     "psr/http-factory": "^1.1",
     "psr/http-message": "^2.0",
     "psr/log": "^3.0"
@@ -34,6 +35,12 @@
     "squizlabs/php_codesniffer": "^4.0",
     "vimeo/psalm": "^6.13"
   },
+  "repositories": [
+    {
+      "type": "path",
+      "url": "~/workspace/argon/packages/maduser-argon-support"
+    }
+  ],
   "config": {
     "optimize-autoloader": true,
     "sort-packages": true,

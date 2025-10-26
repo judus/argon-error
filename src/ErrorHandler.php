@@ -5,11 +5,10 @@ declare(strict_types=1);
 namespace Maduser\Argon\Error;
 
 use ErrorException;
-use JetBrains\PhpStorm\NoReturn;
-use Maduser\Argon\Error\Contracts\ErrorHandlerInterface;
 use Maduser\Argon\Error\Contracts\ExceptionDispatcherInterface;
 use Maduser\Argon\Error\Contracts\ExceptionFormatterInterface;
-use Maduser\Argon\Error\Contracts\ResponseEmitterInterface;
+use Maduser\Argon\Support\Contracts\ErrorHandlerInterface;
+use Maduser\Argon\Support\Contracts\ResponseEmitterInterface;
 use Override;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
@@ -240,7 +239,6 @@ final class ErrorHandler implements ErrorHandlerInterface
         }
     }
 
-    #[NoReturn]
     private function emitFallbackMessage(Throwable $e): void
     {
         http_response_code(500);

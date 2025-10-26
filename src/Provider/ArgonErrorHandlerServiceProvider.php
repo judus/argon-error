@@ -8,14 +8,14 @@ use Maduser\Argon\Container\AbstractServiceProvider;
 use Maduser\Argon\Container\ArgonContainer;
 use Maduser\Argon\Container\Exceptions\ContainerException;
 use Maduser\Argon\Container\Exceptions\NotFoundException;
-use Maduser\Argon\Error\Contracts\ErrorHandlerInterface;
 use Maduser\Argon\Error\Contracts\ErrorHandlerRegistrarInterface;
 use Maduser\Argon\Error\Contracts\ExceptionDispatcherInterface;
 use Maduser\Argon\Error\Contracts\ExceptionFormatterInterface;
-use Maduser\Argon\Error\Contracts\ResponseEmitterInterface;
 use Maduser\Argon\Error\ErrorHandler;
 use Maduser\Argon\Error\ExceptionDispatcher;
 use Maduser\Argon\Error\ExceptionFormatter;
+use Maduser\Argon\Support\Contracts\ErrorHandlerInterface;
+use Maduser\Argon\Support\Contracts\ResponseEmitterInterface;
 use Override;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
@@ -64,5 +64,7 @@ class ArgonErrorHandlerServiceProvider extends AbstractServiceProvider
                 return $dispatcher;
             }
         );
+
+        //$container->get(ErrorHandlerInterface::class)->register();
     }
 }
