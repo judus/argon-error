@@ -201,7 +201,6 @@ final class ErrorHandler implements ErrorHandlerInterface
         }
     }
 
-    #[NoReturn]
     private function emitResponse(ResponseInterface $response): void
     {
         if ($this->emitter !== null) {
