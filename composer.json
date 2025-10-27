@@ -54,7 +54,7 @@
     "psalm": "vendor/bin/psalm --output-format=github",
     "psalm:clear": "vendor/bin/psalm --clear-cache",
     "test": "vendor/bin/phpunit",
-    "test:coverage": "mkdir -p storage/phpunit/coverage/html && vendor/bin/phpunit --coverage-html storage/phpunit/coverage/html --coverage-clover storage/phpunit/coverage/clover.xml && open storage/phpunit/coverage/html/index.html",
+    "test:coverage": "mkdir -p .phpunit/coverage/html && vendor/bin/phpunit --coverage-html .phpunit/coverage/html --coverage-clover .phpunit/coverage/clover.xml && open .phpunit/coverage/html/index.html",
     "ti": "vendor/bin/phpunit --testsuite=integration",
     "tu": "vendor/bin/phpunit --testsuite=unit",
     "watch": "find src/ | entr -r composer check",

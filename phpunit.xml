@@ -1,14 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit
-        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-        xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11.5/phpunit.xsd"
-        bootstrap="vendor/autoload.php"
-        cacheDirectory=".phpunit.cache"
-        colors="true"
-        failOnRisky="true"
-        failOnWarning="true"
-        executionOrder="random"
->
+<phpunit bootstrap="vendor/autoload.php"
+         colors="true"
+         failOnWarning="true"
+         failOnRisky="true"
+         cacheResult="true"
+         cacheDirectory=".phpunit/cache">
     <testsuites>
         <testsuite name="integration">
             <directory suffix="Test.php">tests/integration/</directory>
@@ -19,10 +15,10 @@
             <directory suffix=".php">src/</directory>
         </include>
     </source>
-    <coverage>
+    <coverage includeUncoveredFiles="true">
         <report>
-            <clover outputFile="build/logs/clover.xml"/>
-            <html outputDirectory="build/coverage/html"/>
+            <clover outputFile=".phpunit/coverage/clover.xml"/>
+            <html outputDirectory=".phpunit/coverage/html"/>
             <text outputFile="php://stdout"/>
         </report>
     </coverage>
