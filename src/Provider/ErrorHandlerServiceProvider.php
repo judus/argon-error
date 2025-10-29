@@ -20,7 +20,7 @@ use Override;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
 
-class ArgonErrorHandlerServiceProvider extends AbstractServiceProvider
+class ErrorHandlerServiceProvider extends AbstractServiceProvider
 {
     /**
      * @throws ContainerException
@@ -32,18 +32,15 @@ class ArgonErrorHandlerServiceProvider extends AbstractServiceProvider
             'debug' => $container->getParameters()->get('debug', false)
         ]);
 
-        $container->set(ExceptionFormatterInterface::class, ExceptionFormatter::class)
-            ->tag(['exception.formatter']);
+        $container->set(ExceptionFormatterInterface::class, ExceptionFormatter::class);
 
         $container->set(ErrorHandlerInterface::class, ErrorHandler::class, [
             'logger' => LoggerInterface::class,
             'request' => ServerRequestInterface::class,
             'emitter' => ResponseEmitterInterface::class,
-        ])
-            ->tag(['exception.handler']);
+        ]);
 
-        $container->set(ExceptionDispatcherInterface::class, ExceptionDispatcher::class)
-            ->tag(['exception.dispatcher']);
+        $container->set(ExceptionDispatcherInterface::class, ExceptionDispatcher::class);
     }
 
     /**
@@ -64,7 +61,5 @@ class ArgonErrorHandlerServiceProvider extends AbstractServiceProvider
                 return $dispatcher;
             }
         );
-
-        //$container->get(ErrorHandlerInterface::class)->register();
     }
 }
