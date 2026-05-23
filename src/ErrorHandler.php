@@ -34,7 +34,7 @@ final class ErrorHandler implements ErrorHandlerInterface
         private readonly ExceptionDispatcherInterface $dispatcher,
         private readonly ExceptionFormatterInterface $formatter,
         private readonly ?LoggerInterface $logger = null,
-        private readonly ?ServerRequestInterface $request = null,
+        ?ServerRequestInterface $request = null,
         private readonly ?ResponseEmitterInterface $emitter = null,
     ) {
         $this->bootstrapRequest = $request;

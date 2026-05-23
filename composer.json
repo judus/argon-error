@@ -54,22 +54,13 @@
     "psalm": "vendor/bin/psalm --output-format=github",
     "psalm:clear": "vendor/bin/psalm --clear-cache",
     "test": "vendor/bin/phpunit",
-    "test:coverage": "mkdir -p .phpunit/coverage/html && vendor/bin/phpunit --coverage-html .phpunit/coverage/html --coverage-clover .phpunit/coverage/clover.xml && open .phpunit/coverage/html/index.html",
+    "test:coverage": "mkdir -p .phpunit/coverage/html && vendor/bin/phpunit --coverage-html .phpunit/coverage/html --coverage-clover .phpunit/coverage/clover.xml",
     "ti": "vendor/bin/phpunit --testsuite=integration",
     "tu": "vendor/bin/phpunit --testsuite=unit",
     "watch": "find src/ | entr -r composer check",
     "watch:test": "find src/ | entr -r composer test",
     "watch:fix": "find src/ | entr -r composer phpcs:fix",
-    "check": [
-      "@test:coverage",
-      "@psalm",
-      "@phpcs:fix",
-      "@phpcs"
-    ],
-    "ci": [
-      "@test",
-      "@psalm",
-      "@phpcs"
-    ]
+    "check": ["@test", "@psalm", "@phpcs"],
+    "ci": ["@test", "@psalm", "@phpcs"]
   }
 }

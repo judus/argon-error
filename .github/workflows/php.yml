@@ -21,6 +21,23 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
+    continue-on-error: ${{ matrix.experimental }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - php-version: '8.2'
+            experimental: false
+            composer-options: ''
+          - php-version: '8.3'
+            experimental: false
+            composer-options: ''
+          - php-version: '8.4'
+            experimental: false
+            composer-options: ''
+          - php-version: '8.5'
+            experimental: true
+            composer-options: '--ignore-platform-req=php'
 
     steps:
     - name: Checkout code
@@ -29,7 +46,7 @@ jobs:
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
-        php-version: '8.2'
+        php-version: ${{ matrix.php-version }}
         extensions: mbstring, intl, pdo, pdo_mysql
         coverage: xdebug
 
@@ -40,27 +57,39 @@ jobs:
       uses: actions/cache@v3
       with:
         path: vendor
-        key: ${{ runner.os }}-php-${{ hashFiles('**/composer.lock') }}
+        key: ${{ runner.os }}-php-${{ matrix.php-version }}-${{ hashFiles('**/composer.lock') }}
         restore-keys: |
-          ${{ runner.os }}-php-
+          ${{ runner.os }}-php-${{ matrix.php-version }}-
 
     - name: Install dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest
+      run: composer install --prefer-dist --no-progress --no-suggest ${{ matrix.composer-options }}
+
+    - name: Run PHPUnit
+      if: matrix.php-version != '8.4'
+      run: vendor/bin/phpunit
 
     - name: Run PHPUnit with coverage
+      if: matrix.php-version == '8.4'
       run: vendor/bin/phpunit --coverage-clover=coverage.xml
 
     - name: Run Psalm
+      if: matrix.experimental == false
       run: vendor/bin/psalm --output-format=github --shepherd
 
     - name: Run PHP_CodeSniffer
+      if: matrix.experimental == false
       run: vendor/bin/phpcs --standard=phpcs.xml
 
-    - name: Run PHP CS Fixer (dry-run)
-      run: vendor/bin/php-cs-fixer fix --dry-run --diff --ansi || true
+    - name: Upload coverage to artifacts
+      if: matrix.php-version == '8.4'
+      uses: actions/upload-artifact@v4
+      with:
+        name: coverage-report
+        path: coverage.xml
 
     - name: Upload coverage reports to Codecov
+      if: matrix.php-version == '8.4'
       uses: codecov/codecov-action@v5
       with:
         token: ${{ secrets.CODECOV_TOKEN }}
-        slug: judus/argon-dto
+        slug: judus/argon-error

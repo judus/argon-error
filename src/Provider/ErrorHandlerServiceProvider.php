@@ -20,7 +20,7 @@ use Override;
 use Psr\Http\Message\ServerRequestInterface;
 use Psr\Log\LoggerInterface;
 
-class ErrorHandlerServiceProvider extends AbstractServiceProvider
+final class ErrorHandlerServiceProvider extends AbstractServiceProvider
 {
     /**
      * @throws ContainerException
