@@ -4,26 +4,29 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "1a7e81b237296150e7c99b78a6626d9b",
+    "content-hash": "b44caea37c3c41a9110651d142f6e242",
     "packages": [
         {
-            "name": "maduser/argon",
+            "name": "maduser/argon-container",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/judus/argon.git",
-                "reference": "76bf216bbd190e3eb0f6c30bb98b2bbc38191ac5"
+                "url": "https://github.com/judus/argon-container.git",
+                "reference": "893d97afa4bf2d9c9433e8d48794f5594c6509d1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/judus/argon/zipball/76bf216bbd190e3eb0f6c30bb98b2bbc38191ac5",
-                "reference": "76bf216bbd190e3eb0f6c30bb98b2bbc38191ac5",
+                "url": "https://api.github.com/repos/judus/argon-container/zipball/893d97afa4bf2d9c9433e8d48794f5594c6509d1",
+                "reference": "893d97afa4bf2d9c9433e8d48794f5594c6509d1",
                 "shasum": ""
             },
             "require": {
                 "nette/php-generator": "^4.2",
                 "php": "^8.2",
                 "psr/container": "^2.0"
+            },
+            "replace": {
+                "maduser/argon": "self.version"
             },
             "require-dev": {
                 "dealerdirect/phpcodesniffer-composer-installer": "^1.1",
@@ -87,7 +90,7 @@
                 }
             ],
             "description": "A high-performance, modular, PSR-11 compliant dependency injection container for PHP.",
-            "time": "2026-05-21T07:47:46+00:00"
+            "time": "2026-05-24T13:36:45+00:00"
         },
         {
             "name": "maduser/argon-support",
@@ -95,15 +98,16 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/judus/argon-support.git",
-                "reference": "3eaa0bbcd37736543e862448d2b89dd293dbb9f3"
+                "reference": "aa45021a97040da07c8b6daa4150f01053cad76f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/judus/argon-support/zipball/3eaa0bbcd37736543e862448d2b89dd293dbb9f3",
-                "reference": "3eaa0bbcd37736543e862448d2b89dd293dbb9f3",
+                "url": "https://api.github.com/repos/judus/argon-support/zipball/aa45021a97040da07c8b6daa4150f01053cad76f",
+                "reference": "aa45021a97040da07c8b6daa4150f01053cad76f",
                 "shasum": ""
             },
             "require": {
+                "php": "^8.2",
                 "psr/http-message": "^2.0",
                 "psr/http-server-handler": "^1.0"
             },
@@ -146,10 +150,7 @@
                     "vendor/bin/phpunit"
                 ],
                 "test:coverage": [
-                    "mkdir -p storage/phpunit/coverage/html && vendor/bin/phpunit --coverage-html storage/phpunit/coverage/html --coverage-clover storage/phpunit/coverage/clover.xml && open storage/phpunit/coverage/html/index.html"
-                ],
-                "ti": [
-                    "vendor/bin/phpunit --testsuite=integration"
+                    "mkdir -p .phpunit/coverage/html && vendor/bin/phpunit --coverage-html .phpunit/coverage/html --coverage-clover .phpunit/coverage/clover.xml"
                 ],
                 "tu": [
                     "vendor/bin/phpunit --testsuite=unit"
@@ -164,9 +165,8 @@
                     "find src/ | entr -r composer phpcs:fix"
                 ],
                 "check": [
-                    "@test:coverage",
+                    "@test",
                     "@psalm",
-                    "@phpcs:fix",
                     "@phpcs"
                 ],
                 "ci": [
@@ -184,7 +184,8 @@
                     "email": "julien.duseyau@gmail.com"
                 }
             ],
-            "time": "2025-10-29T12:13:51+00:00"
+            "description": "Shared contracts and lightweight support helpers for the Argon package suite.",
+            "time": "2026-05-24T13:37:50+00:00"
         },
         {
             "name": "nette/php-generator",
@@ -5617,7 +5618,7 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "maduser/argon": 20,
+        "maduser/argon-container": 20,
         "maduser/argon-support": 20
     },
     "prefer-stable": true,
