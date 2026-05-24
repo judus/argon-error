@@ -15,6 +15,7 @@ use Maduser\Argon\Error\Contracts\ExceptionPolicyRegistryInterface;
 use Maduser\Argon\Error\ErrorHandler;
 use Maduser\Argon\Error\ExceptionDispatcher;
 use Maduser\Argon\Error\ExceptionFormatter;
+use Maduser\Argon\Error\ExceptionPolicyRegistryFactory;
 use Maduser\Argon\Support\Contracts\ErrorHandlerInterface;
 use Maduser\Argon\Support\Contracts\ResponseEmitterInterface;
 use Override;
@@ -42,15 +43,9 @@ final class ErrorHandlerServiceProvider extends AbstractServiceProvider
         ]);
 
         $container->set(ExceptionDispatcherInterface::class, ExceptionDispatcher::class);
-        $container->set(
-            ExceptionPolicyRegistryInterface::class,
-            static function (ArgonContainer $container): ExceptionPolicyRegistryInterface {
-                $dispatcher = $container->get(ExceptionDispatcherInterface::class);
-                assert($dispatcher instanceof ExceptionPolicyRegistryInterface);
-
-                return $dispatcher;
-            }
-        );
+        $container->set(ExceptionPolicyRegistryFactory::class);
+        $container->set(ExceptionPolicyRegistryInterface::class, ExceptionDispatcher::class)
+            ->factory(ExceptionPolicyRegistryFactory::class);
     }
 
     /**
