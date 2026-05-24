@@ -37,8 +37,14 @@
   },
   "repositories": [
     {
-      "type": "path",
-      "url": "~/workspace/argon/packages/maduser-argon-support"
+      "type": "vcs",
+      "url": "https://github.com/judus/argon.git",
+      "no-api": true
+    },
+    {
+      "type": "vcs",
+      "url": "https://github.com/judus/argon-support.git",
+      "no-api": true
     }
   ],
   "config": {

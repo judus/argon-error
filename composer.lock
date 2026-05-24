@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "23de38bba6f569eff4450423f382a7f9",
+    "content-hash": "1a7e81b237296150e7c99b78a6626d9b",
     "packages": [
         {
             "name": "maduser/argon",
@@ -12,12 +12,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/judus/argon.git",
-                "reference": "3bb606f52e5fc950688b93fc4903a1291313cd2d"
+                "reference": "76bf216bbd190e3eb0f6c30bb98b2bbc38191ac5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/judus/argon/zipball/3bb606f52e5fc950688b93fc4903a1291313cd2d",
-                "reference": "3bb606f52e5fc950688b93fc4903a1291313cd2d",
+                "url": "https://api.github.com/repos/judus/argon/zipball/76bf216bbd190e3eb0f6c30bb98b2bbc38191ac5",
+                "reference": "76bf216bbd190e3eb0f6c30bb98b2bbc38191ac5",
                 "shasum": ""
             },
             "require": {
@@ -35,14 +35,48 @@
             "default-branch": true,
             "type": "library",
             "autoload": {
-                "files": [
-                    "autoload/override-attribute.php"
-                ],
                 "psr-4": {
                     "Maduser\\Argon\\Container\\": "src/"
+                },
+                "files": [
+                    "autoload/override-attribute.php"
+                ]
+            },
+            "autoload-dev": {
+                "psr-4": {
+                    "Tests\\Mocks\\": "tests/resources/mocks/",
+                    "Tests\\Unit\\": "tests/unit/",
+                    "Tests\\Integration\\": "tests/integration/"
                 }
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "scripts": {
+                "test": [
+                    "vendor/bin/phpunit"
+                ],
+                "test:coverage": [
+                    "vendor/bin/phpunit --coverage-clover=coverage.xml --coverage-html coverage-report"
+                ],
+                "phpcs": [
+                    "vendor/bin/phpcs --standard=phpcs.xml"
+                ],
+                "psalm": [
+                    "vendor/bin/psalm --no-cache --output-format=github"
+                ],
+                "phpcs:fix": [
+                    "vendor/bin/phpcbf --standard=phpcs.xml"
+                ],
+                "check": [
+                    "@test",
+                    "@psalm",
+                    "@phpcs"
+                ],
+                "ci": [
+                    "@test",
+                    "@test:coverage",
+                    "@psalm",
+                    "@phpcs"
+                ]
+            },
             "license": [
                 "MIT"
             ],
@@ -53,19 +87,21 @@
                 }
             ],
             "description": "A high-performance, modular, PSR-11 compliant dependency injection container for PHP.",
-            "support": {
-                "issues": "https://github.com/judus/argon/issues",
-                "source": "https://github.com/judus/argon/tree/master"
-            },
-            "time": "2025-10-25T09:49:43+00:00"
+            "time": "2026-05-21T07:47:46+00:00"
         },
         {
             "name": "maduser/argon-support",
             "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/judus/argon-support.git",
+                "reference": "3eaa0bbcd37736543e862448d2b89dd293dbb9f3"
+            },
             "dist": {
-                "type": "path",
-                "url": "/home/maduser/workspace/argon/packages/maduser-argon-support",
-                "reference": "bfa43db9f20654c16caef382275dcb31f7f61cab"
+                "type": "zip",
+                "url": "https://api.github.com/repos/judus/argon-support/zipball/3eaa0bbcd37736543e862448d2b89dd293dbb9f3",
+                "reference": "3eaa0bbcd37736543e862448d2b89dd293dbb9f3",
+                "shasum": ""
             },
             "require": {
                 "psr/http-message": "^2.0",
@@ -78,11 +114,15 @@
                 "squizlabs/php_codesniffer": "^4.0",
                 "vimeo/psalm": "^6.13"
             },
+            "default-branch": true,
             "type": "library",
             "autoload": {
                 "psr-4": {
                     "Maduser\\Argon\\Support\\": "src/"
-                }
+                },
+                "files": [
+                    "src/polyfills/Override.php"
+                ]
             },
             "autoload-dev": {
                 "psr-4": {
@@ -144,22 +184,20 @@
                     "email": "julien.duseyau@gmail.com"
                 }
             ],
-            "transport-options": {
-                "relative": false
-            }
+            "time": "2025-10-29T12:13:51+00:00"
         },
         {
             "name": "nette/php-generator",
-            "version": "v4.2.0",
+            "version": "v4.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/php-generator.git",
-                "reference": "4707546a1f11badd72f5d82af4f8a6bc64bd56ac"
+                "reference": "0d7060926f5c3e8c488b9b9ced42d857f12a34b5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/php-generator/zipball/4707546a1f11badd72f5d82af4f8a6bc64bd56ac",
-                "reference": "4707546a1f11badd72f5d82af4f8a6bc64bd56ac",
+                "url": "https://api.github.com/repos/nette/php-generator/zipball/0d7060926f5c3e8c488b9b9ced42d857f12a34b5",
+                "reference": "0d7060926f5c3e8c488b9b9ced42d857f12a34b5",
                 "shasum": ""
             },
             "require": {
@@ -168,9 +206,11 @@
             },
             "require-dev": {
                 "jetbrains/phpstorm-attributes": "^1.2",
-                "nette/tester": "^2.4",
+                "nette/phpstan-rules": "^1.0",
+                "nette/tester": "^2.6",
                 "nikic/php-parser": "^5.0",
-                "phpstan/phpstan-nette": "^2.0@stable",
+                "phpstan/extension-installer": "^1.4@stable",
+                "phpstan/phpstan": "^2.1.40@stable",
                 "tracy/tracy": "^2.8"
             },
             "suggest": {
@@ -216,26 +256,26 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/php-generator/issues",
-                "source": "https://github.com/nette/php-generator/tree/v4.2.0"
+                "source": "https://github.com/nette/php-generator/tree/v4.2.2"
             },
-            "time": "2025-08-06T18:24:31+00:00"
+            "time": "2026-02-26T00:58:33+00:00"
         },
         {
             "name": "nette/utils",
-            "version": "v4.0.8",
+            "version": "v4.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/nette/utils.git",
-                "reference": "c930ca4e3cf4f17dcfb03037703679d2396d2ede"
+                "reference": "7da6c396d7ebe142bc857c20479d5e70a5e1aac7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/nette/utils/zipball/c930ca4e3cf4f17dcfb03037703679d2396d2ede",
-                "reference": "c930ca4e3cf4f17dcfb03037703679d2396d2ede",
+                "url": "https://api.github.com/repos/nette/utils/zipball/7da6c396d7ebe142bc857c20479d5e70a5e1aac7",
+                "reference": "7da6c396d7ebe142bc857c20479d5e70a5e1aac7",
                 "shasum": ""
             },
             "require": {
-                "php": "8.0 - 8.5"
+                "php": "8.2 - 8.5"
             },
             "conflict": {
                 "nette/finder": "<3",
@@ -243,8 +283,10 @@
             },
             "require-dev": {
                 "jetbrains/phpstorm-attributes": "^1.2",
+                "nette/phpstan-rules": "^1.0",
                 "nette/tester": "^2.5",
-                "phpstan/phpstan-nette": "^2.0@stable",
+                "phpstan/extension-installer": "^1.4@stable",
+                "phpstan/phpstan": "^2.1@stable",
                 "tracy/tracy": "^2.9"
             },
             "suggest": {
@@ -258,7 +300,7 @@
             "type": "library",
             "extra": {
                 "branch-alias": {
-                    "dev-master": "4.0-dev"
+                    "dev-master": "4.1-dev"
                 }
             },
             "autoload": {
@@ -305,9 +347,9 @@
             ],
             "support": {
                 "issues": "https://github.com/nette/utils/issues",
-                "source": "https://github.com/nette/utils/tree/v4.0.8"
+                "source": "https://github.com/nette/utils/tree/v4.1.4"
             },
-            "time": "2025-08-06T21:43:34+00:00"
+            "time": "2026-05-11T20:49:54+00:00"
         },
         {
             "name": "psr/container",
@@ -5569,5 +5611,5 @@
     "prefer-lowest": false,
     "platform": {},
     "platform-dev": {},
-    "plugin-api-version": "2.6.0"
+    "plugin-api-version": "2.9.0"
 }
