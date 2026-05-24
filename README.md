@@ -1,5 +1,14 @@
 # Argon Error
 
+[![PHP](https://img.shields.io/badge/php-8.2+-blue)](https://www.php.net/)
+[![Build](https://github.com/judus/argon-error/actions/workflows/php.yml/badge.svg)](https://github.com/judus/argon-error/actions)
+[![codecov](https://codecov.io/gh/judus/argon-error/branch/master/graph/badge.svg)](https://codecov.io/gh/judus/argon-error)
+[![Psalm Level](https://shepherd.dev/github/judus/argon-error/coverage.svg)](https://shepherd.dev/github/judus/argon-error)
+[![Code Style](https://img.shields.io/badge/code%20style-PSR--12-brightgreen.svg)](https://www.php-fig.org/psr/psr-12/)
+[![Latest Version](https://img.shields.io/packagist/v/maduser/argon-error.svg)](https://packagist.org/packages/maduser/argon-error)
+[![Downloads](https://img.shields.io/packagist/dt/maduser/argon-error.svg)](https://packagist.org/packages/maduser/argon-error)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 `maduser/argon-error` is the HTTP error-handling layer for Argon applications.
 It turns uncaught throwables into PSR-7 responses, lets applications register
 exception-specific reporting and rendering policies, and integrates with the
