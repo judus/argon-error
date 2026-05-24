@@ -38,11 +38,6 @@
   "repositories": [
     {
       "type": "vcs",
-      "url": "https://github.com/judus/argon-container.git",
-      "no-api": true
-    },
-    {
-      "type": "vcs",
       "url": "https://github.com/judus/argon-support.git",
       "no-api": true
     }

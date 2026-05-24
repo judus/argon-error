@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "b44caea37c3c41a9110651d142f6e242",
+    "content-hash": "fedbb5b89f2224335f5f23e5e838df7b",
     "packages": [
         {
             "name": "maduser/argon-container",
@@ -38,48 +38,14 @@
             "default-branch": true,
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "Maduser\\Argon\\Container\\": "src/"
-                },
                 "files": [
                     "autoload/override-attribute.php"
-                ]
-            },
-            "autoload-dev": {
+                ],
                 "psr-4": {
-                    "Tests\\Mocks\\": "tests/resources/mocks/",
-                    "Tests\\Unit\\": "tests/unit/",
-                    "Tests\\Integration\\": "tests/integration/"
+                    "Maduser\\Argon\\Container\\": "src/"
                 }
             },
-            "scripts": {
-                "test": [
-                    "vendor/bin/phpunit"
-                ],
-                "test:coverage": [
-                    "vendor/bin/phpunit --coverage-clover=coverage.xml --coverage-html coverage-report"
-                ],
-                "phpcs": [
-                    "vendor/bin/phpcs --standard=phpcs.xml"
-                ],
-                "psalm": [
-                    "vendor/bin/psalm --no-cache --output-format=github"
-                ],
-                "phpcs:fix": [
-                    "vendor/bin/phpcbf --standard=phpcs.xml"
-                ],
-                "check": [
-                    "@test",
-                    "@psalm",
-                    "@phpcs"
-                ],
-                "ci": [
-                    "@test",
-                    "@test:coverage",
-                    "@psalm",
-                    "@phpcs"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -90,6 +56,10 @@
                 }
             ],
             "description": "A high-performance, modular, PSR-11 compliant dependency injection container for PHP.",
+            "support": {
+                "issues": "https://github.com/judus/argon-container/issues",
+                "source": "https://github.com/judus/argon-container/tree/master"
+            },
             "time": "2026-05-24T13:36:45+00:00"
         },
         {
