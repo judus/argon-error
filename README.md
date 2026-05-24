@@ -2,15 +2,15 @@
 
 `maduser/argon-error` is the HTTP error-handling layer for Argon applications.
 It turns uncaught throwables into PSR-7 responses, lets applications register
-exception-specific responders, and integrates with the shared Argon runtime
-error-handler contract.
+exception-specific reporting and rendering policies, and integrates with the
+shared Argon runtime error-handler contract.
 
 The package stays intentionally small:
 
 - `ErrorHandler` bridges Argon runtime failures to the dispatcher/formatter
   stack.
-- `ExceptionDispatcher` runs registered exception responders before falling back
-  to the formatter.
+- `ExceptionDispatcher` runs registered exception policies before falling back to
+  the formatter.
 - `ExceptionFormatter` creates JSON or plain-text PSR-7 responses.
 - `ErrorHandlerServiceProvider` wires the package into an `ArgonContainer`.
 
@@ -41,31 +41,80 @@ The provider binds:
 - `Maduser\Argon\Support\Contracts\ErrorHandlerInterface`
 - `Maduser\Argon\Error\Contracts\ExceptionDispatcherInterface`
 - `Maduser\Argon\Error\Contracts\ExceptionFormatterInterface`
+- `Maduser\Argon\Error\Contracts\ExceptionPolicyRegistryInterface`
 
-Any service tagged as `ErrorHandlerRegistrarInterface` can register custom
-exception responders during container boot.
-
-## Exception Responders
-
-Responders receive the thrown exception and the active server request. Returning
-a `ResponseInterface` stops dispatch. Returning `null` lets the dispatcher keep
-looking and eventually fall back to the formatter.
+Any service tagged as `ExceptionPolicyInterface` can register custom exception
+reporting and rendering during container boot.
 
 ```php
-use Maduser\Argon\Error\Contracts\ExceptionDispatcherInterface;
+use App\Http\AppExceptionPolicy;
+use Maduser\Argon\Error\Contracts\ExceptionPolicyInterface;
+
+$container->set(AppExceptionPolicy::class)->tag(ExceptionPolicyInterface::class);
+```
+
+## Exception Policies
+
+Policies separate side effects from response creation:
+
+- reporters run first for all matching exception types;
+- renderers run after reporters and may return a `ResponseInterface`;
+- a renderer returning `null` lets the dispatcher continue;
+- if no renderer returns a response, the formatter creates the fallback response.
+
+```php
+use Maduser\Argon\Error\Contracts\ExceptionPolicyInterface;
+use Maduser\Argon\Error\Contracts\ExceptionPolicyRegistryInterface;
+use App\Exceptions\PaymentFailed;
+use Psr\Http\Message\ResponseFactoryInterface;
 use Psr\Http\Message\ResponseInterface;
 use Psr\Http\Message\ServerRequestInterface;
+use Psr\Http\Message\StreamFactoryInterface;
+use Psr\Log\LoggerInterface;
 use RuntimeException;
 use Throwable;
 
-$dispatcher->register(
-    RuntimeException::class,
-    static function (Throwable $exception, ServerRequestInterface $request): ?ResponseInterface {
-        // Return a PSR-7 response, or null to let the formatter handle it.
-        return null;
+final readonly class AppExceptionPolicy implements ExceptionPolicyInterface
+{
+    public function __construct(
+        private LoggerInterface $logger,
+        private ResponseFactoryInterface $responses,
+        private StreamFactoryInterface $streams,
+    ) {
     }
-);
+
+    public function register(ExceptionPolicyRegistryInterface $exceptions): void
+    {
+        $exceptions->report(
+            Throwable::class,
+            fn(Throwable $e, ServerRequestInterface $request): void => $this->logger->error(
+                $e->getMessage(),
+                ['exception' => $e, 'path' => $request->getUri()->getPath()]
+            )
+        );
+
+        $exceptions->report(
+            PaymentFailed::class,
+            fn(PaymentFailed $e): void => $this->notifyBillingChannel($e)
+        );
+
+        $exceptions->render(
+            RuntimeException::class,
+            fn(RuntimeException $e): ?ResponseInterface => $this->responses
+                ->createResponse(500)
+                ->withHeader('Content-Type', 'application/json')
+                ->withBody($this->streams->createStream('{"error":"Runtime failure"}'))
+        );
+    }
+}
 ```
+
+Renderer selection is deterministic. More specific exception classes win before
+parent classes or interfaces. If two renderers are registered for the same
+specificity, registration order wins.
+
+Reporter and renderer failures are logged and swallowed. Exception handling must
+not fail because an application callback failed.
 
 ## Formatting
 
