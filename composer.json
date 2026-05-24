@@ -3,7 +3,7 @@
   "description": "Exception policy and error response handling for the Argon runtime stack.",
   "type": "library",
   "license": "MIT",
-  "minimum-stability": "dev",
+  "minimum-stability": "stable",
   "prefer-stable": true,
   "authors": [
     {
@@ -22,8 +22,8 @@
     }
   },
   "require": {
-    "maduser/argon-container": "dev-master",
-    "maduser/argon-support": "dev-master",
+    "maduser/argon-container": "^1.3",
+    "maduser/argon-support": "^1.0",
     "psr/http-factory": "^1.1",
     "psr/http-message": "^2.0",
     "psr/log": "^3.0"
@@ -35,13 +35,6 @@
     "squizlabs/php_codesniffer": "^4.0",
     "vimeo/psalm": "^6.13"
   },
-  "repositories": [
-    {
-      "type": "vcs",
-      "url": "https://github.com/judus/argon-support.git",
-      "no-api": true
-    }
-  ],
   "config": {
     "optimize-autoloader": true,
     "sort-packages": true,

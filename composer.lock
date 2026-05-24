@@ -4,20 +4,20 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "fedbb5b89f2224335f5f23e5e838df7b",
+    "content-hash": "5869bc843b60ab18573984a1be154c1a",
     "packages": [
         {
             "name": "maduser/argon-container",
-            "version": "dev-master",
+            "version": "v1.3.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/judus/argon-container.git",
-                "reference": "893d97afa4bf2d9c9433e8d48794f5594c6509d1"
+                "reference": "61e5d8190e0809f50d9972c579a3ee01ca09c1c3"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/judus/argon-container/zipball/893d97afa4bf2d9c9433e8d48794f5594c6509d1",
-                "reference": "893d97afa4bf2d9c9433e8d48794f5594c6509d1",
+                "url": "https://api.github.com/repos/judus/argon-container/zipball/61e5d8190e0809f50d9972c579a3ee01ca09c1c3",
+                "reference": "61e5d8190e0809f50d9972c579a3ee01ca09c1c3",
                 "shasum": ""
             },
             "require": {
@@ -35,7 +35,6 @@
                 "squizlabs/php_codesniffer": "^4.0",
                 "vimeo/psalm": "^6.13"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
                 "files": [
@@ -58,22 +57,22 @@
             "description": "A high-performance, modular, PSR-11 compliant dependency injection container for PHP.",
             "support": {
                 "issues": "https://github.com/judus/argon-container/issues",
-                "source": "https://github.com/judus/argon-container/tree/master"
+                "source": "https://github.com/judus/argon-container/tree/v1.3.0"
             },
-            "time": "2026-05-24T13:36:45+00:00"
+            "time": "2026-05-24T14:26:31+00:00"
         },
         {
             "name": "maduser/argon-support",
-            "version": "dev-master",
+            "version": "v1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/judus/argon-support.git",
-                "reference": "aa45021a97040da07c8b6daa4150f01053cad76f"
+                "reference": "936415dbe08766e7b787153e98a45c76f38c60bd"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/judus/argon-support/zipball/aa45021a97040da07c8b6daa4150f01053cad76f",
-                "reference": "aa45021a97040da07c8b6daa4150f01053cad76f",
+                "url": "https://api.github.com/repos/judus/argon-support/zipball/936415dbe08766e7b787153e98a45c76f38c60bd",
+                "reference": "936415dbe08766e7b787153e98a45c76f38c60bd",
                 "shasum": ""
             },
             "require": {
@@ -88,63 +87,16 @@
                 "squizlabs/php_codesniffer": "^4.0",
                 "vimeo/psalm": "^6.13"
             },
-            "default-branch": true,
             "type": "library",
             "autoload": {
-                "psr-4": {
-                    "Maduser\\Argon\\Support\\": "src/"
-                },
                 "files": [
                     "src/polyfills/Override.php"
-                ]
-            },
-            "autoload-dev": {
+                ],
                 "psr-4": {
-                    "Tests\\": "tests/"
+                    "Maduser\\Argon\\Support\\": "src/"
                 }
             },
-            "scripts": {
-                "phpcs": [
-                    "vendor/bin/phpcs --standard=phpcs.xml"
-                ],
-                "phpcs:fix": [
-                    "vendor/bin/phpcbf --standard=phpcs.xml"
-                ],
-                "psalm": [
-                    "vendor/bin/psalm --output-format=github"
-                ],
-                "psalm:clear": [
-                    "vendor/bin/psalm --clear-cache"
-                ],
-                "test": [
-                    "vendor/bin/phpunit"
-                ],
-                "test:coverage": [
-                    "mkdir -p .phpunit/coverage/html && vendor/bin/phpunit --coverage-html .phpunit/coverage/html --coverage-clover .phpunit/coverage/clover.xml"
-                ],
-                "tu": [
-                    "vendor/bin/phpunit --testsuite=unit"
-                ],
-                "watch": [
-                    "find src/ | entr -r composer check"
-                ],
-                "watch:test": [
-                    "find src/ | entr -r composer test"
-                ],
-                "watch:fix": [
-                    "find src/ | entr -r composer phpcs:fix"
-                ],
-                "check": [
-                    "@test",
-                    "@psalm",
-                    "@phpcs"
-                ],
-                "ci": [
-                    "@test",
-                    "@psalm",
-                    "@phpcs"
-                ]
-            },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
@@ -155,7 +107,11 @@
                 }
             ],
             "description": "Shared contracts and lightweight support helpers for the Argon package suite.",
-            "time": "2026-05-24T13:37:50+00:00"
+            "support": {
+                "issues": "https://github.com/judus/argon-support/issues",
+                "source": "https://github.com/judus/argon-support/tree/v1.0.0"
+            },
+            "time": "2026-05-24T14:26:31+00:00"
         },
         {
             "name": "nette/php-generator",
@@ -5586,11 +5542,8 @@
         }
     ],
     "aliases": [],
-    "minimum-stability": "dev",
-    "stability-flags": {
-        "maduser/argon-container": 20,
-        "maduser/argon-support": 20
-    },
+    "minimum-stability": "stable",
+    "stability-flags": {},
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {},
